@@ -7,6 +7,7 @@
     <script>
         function Reset()
         {
+          if  (!/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)){
             var canvas = document.querySelector("#unity-canvas");//获取#canvas
             var h=  document.documentElement.clientHeight;//获取body可见区域高度
             var w =  document.documentElement.clientWidth;//获取body可见区域高度
@@ -24,6 +25,7 @@
               canvas.style.width=w + "px";
               console.log("style2:" + canvas.style.height + "   " + canvas.style.width);
             }
+          }
         }
     </script>
   </head>
@@ -44,12 +46,6 @@
 
         document.body.style.textAlign = "left";
       }
-      // else{
-      //   canvas.style.width = "30%";
-      //   canvas.style.height = "30%";
-      //   canvas.style.position = "absoluted";
-      // }
-
       createUnityInstance(document.querySelector("#unity-canvas"), {
         dataUrl: "Build/webglDemo.data",
         frameworkUrl: "Build/webglDemo.framework.js",
