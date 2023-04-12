@@ -4,14 +4,35 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>H5Demo</title>
+    <script>
+        function Reset()
+        {
+            var canvas = document.querySelector("#unity-canvas");//获取#canvas
+            var h=  document.documentElement.clientHeight;//获取body可见区域高度
+            var w =  document.documentElement.clientWidth;//获取body可见区域高度
+            var scale = 750/1334;
+            console.log("reset: height "+ h + "  width:" + w);
+
+            if (w/h > scale) {
+              canvas.style.height=h+"px";
+              canvas.style.width=h*scale + "px";
+              console.log("style1:" + canvas.style.height + "   " + canvas.style.width);
+
+            }
+            if (w/h < scale) {
+              canvas.style.height=w/scale + "px";
+              canvas.style.width=w + "px";
+              console.log("style2:" + canvas.style.height + "   " + canvas.style.width);
+            }
+        }
+    </script>
   </head>
-  <body style="text-align: center; padding: 0; border: 0; margin: 0;">
+  <body onload="Reset()" onresize="Reset()" style="text-align: center; padding: 0; border: 0; margin: 0;">
     <canvas id="unity-canvas" width=750 height=1334 style="width: 750px; height: 1334px; background: url('Build/webglDemo.jpg') center / cover"></canvas>
     <script src="Build/webglDemo.loader.js"></script>
     <script>
       var canvas = document.querySelector("#unity-canvas");
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        // Mobile device style: fill the whole browser client area with the game canvas:
         var meta = document.createElement('meta');
         meta.name = 'viewport';
         meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
@@ -23,14 +44,11 @@
 
         document.body.style.textAlign = "left";
       }
-      else{
-        //Scale by height
-        var scale = window.innerHeight / 1334;
-        console.log("window.innerHeight:" + window.innerHeight + "  " + window.innerWidth  + "  scale: "+ scale);
-        canvas.style.width = "30%";
-        canvas.style.height = "30%";
-        canvas.style.position = "absoluted";
-      }
+      // else{
+      //   canvas.style.width = "30%";
+      //   canvas.style.height = "30%";
+      //   canvas.style.position = "absoluted";
+      // }
 
       createUnityInstance(document.querySelector("#unity-canvas"), {
         dataUrl: "Build/webglDemo.data",
@@ -40,8 +58,6 @@
         companyName: "MC",
         productName: "H5Demo",
         productVersion: "0.1",
-        matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
-        // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
       });
     </script>
   </body>
